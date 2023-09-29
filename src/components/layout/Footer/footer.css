@@ -1,5 +1,6 @@
 /* footer.css */
 footer {
+    font-family: Roboto;
     display: flex;
     justify-content: space-between;
     background-color: #000;
