@@ -12,12 +12,13 @@ import { useSelector, useDispatch } from 'react-redux'
 const Home = () => {
 
   const dispatch = useDispatch()
-  const {loading, products, error, productsCount} = useSelector( state => state.products)
+  const {loading, products, error} = useSelector( (state) => state.products)
 
   React.useEffect( () => {
     dispatch(getProduct())
   }, [dispatch] )
 
+  console.log({"Error" : products})
 
   return (
     <Fragment>
@@ -37,7 +38,7 @@ const Home = () => {
 
 
         <div className="container" id="container">
-          { products && products.map((product) => <Product product={product} />)}
+          { products && products.map((item) => <Product product={item} />)}
         </div>
     </Fragment>
 

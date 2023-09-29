@@ -14,7 +14,6 @@ const Product = ({product}) => {
                 edit={false}
                 value={3}
                 count={5}
-                onChange={() => {}}
                 size={window.innerWidth < 600 ? 20: 25}
                 isHalf={true}
                 emptyIcon={<i className="far fa-star"></i>}
