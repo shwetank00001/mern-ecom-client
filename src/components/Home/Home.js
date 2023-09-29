@@ -20,6 +20,12 @@ const Home = () => {
 
   console.log({"Error" : products})
 
+  const ele = {
+
+  }
+
+  let product = true
+
   return (
     <Fragment>
       <MetaData title="Shwetank's Ecommerce" />
