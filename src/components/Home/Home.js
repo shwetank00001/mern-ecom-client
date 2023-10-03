@@ -1,7 +1,7 @@
 import { Fragment } from "react"
 import React from 'react'
 
-import './home.css'
+import './Home.css'
 import Product from './Product.js'
 import MetaData from "../layout/MetaData"
 
@@ -15,16 +15,11 @@ const Home = () => {
   const {loading, products, error} = useSelector( (state) => state.products)
 
   React.useEffect( () => {
-    dispatch(getProduct())
+    dispatch(getProduct())  
+    console.log({"Error" : products})
   }, [dispatch] )
 
-  console.log({"Error" : products})
 
-  const ele = {
-
-  }
-
-  let product = true
 
   return (
     <Fragment>
@@ -44,7 +39,9 @@ const Home = () => {
 
 
         <div className="container" id="container">
-          { products && products.map((item) => <Product product={item} />)}
+          { products && products.map((item) => 
+          {<Product product={item} />}
+          )}
         </div>
     </Fragment>
 
