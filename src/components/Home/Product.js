@@ -5,6 +5,12 @@ import ReactStars from 'react-rating-stars-component'
 
 const Product = ({product}) => {
 
+  const options = {
+    value: product.rating,
+    readOnly: true,
+    precision: 0.5,
+  };
+
   
   // const [ test, setTest ] = React.useState()
 
@@ -25,20 +31,9 @@ const Product = ({product}) => {
         <p>{product.name}</p>
         
         <div>
-            <ReactStars
-                edit={false}
-                value={3}
-                count={5}
-                size={window.innerWidth < 600 ? 20: 25}
-                isHalf={true}
-                emptyIcon={<i className="far fa-star"></i>}
-                halfIcon={<i className="fa fa-star-half-alt"></i>}
-                fullIcon={<i className="fa fa-star"></i>}
-                activeColor="#ffd700" /> 
-
-                <span className='productCardSpan'>[50 rating]</span>
+        <ReactStars {...options} />{" "}<span className='productCardSpan'>{product.numOfReviews}</span>
         </div>
-        <span>{product.price}</span>
+        <span>{`₹ ${product.price}`}</span>
     </Link>
   )
 }
