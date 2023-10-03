@@ -26,7 +26,7 @@ const Product = ({product}) => {
   // console.log(test)
 
   return (
-    <Link className='productCard' to={product._id}>
+    <Link className='productCard' to={`/product/${product._id}`}>
       <img src={'https://media.istockphoto.com/id/1142212002/photo/front-of-men-cut-black-t-shirt-isolated-on-white-background.webp?b=1&s=170667a&w=0&k=20&c=VZARRRO1PwMYKV9cHquulb69QwbxSEFA5S76-axY27c='} alt='t-shirt'/>
         <p>{product.name}</p>
         
