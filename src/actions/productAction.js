@@ -26,7 +26,8 @@ export const getProduct = ()=> async ( dispatch ) => {
 export const getProductDetails = (id)=> async ( dispatch ) => {
     try {
         const {data} = await axios.get(`http://localhost:5000/api/v1/product/${id}` )
-        console.log("The data has been received by the redux:-", data)
+
+        console.log("The single has been received by the redux:-", data)
         dispatch( { type: "ALL_PRODUCT_SUCCESS", payload : data.product } )
         console.log("working")
     } catch (error) {
