@@ -282,3 +282,12 @@
       font: 300 5vw cursive;
     }
   }
+  
+
+  .greenColor{
+    color: green;
+}
+
+.redColor {
+    color: red 
+}

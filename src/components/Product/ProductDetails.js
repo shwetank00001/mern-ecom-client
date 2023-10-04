@@ -5,55 +5,89 @@ import { getProductDetails } from '../../actions/productAction'
 
 import ReactStars from 'react-rating-stars-component'
 import { useParams } from 'react-router-dom';
+import './ProductDetails.css'
 
  
-const ProductDetails = ( { match }) => {
+const ProductDetails = () => {
+  const dispatch = useDispatch()  
+  const { product, loading, error } = useSelector(state => state.productDetails) 
+  let { id } = useParams();
 
+  React.useEffect(() => {
+    dispatch(getProductDetails(id))
+    console.log(id)
+  }, [dispatch, id])
 
-    const dispatch = useDispatch()
-    let { id } = useParams();
-    const {product ,loading, error }  = useSelector(state => state.productDetails)
-    
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
+  const options = {
+    value: product.rating,
+    readOnly: true,
+    precision: 0.5,
+  };
 
-
-    React.useEffect( () => {
-        dispatch(getProductDetails(id))
-    }, [dispatch, id] )
 
   return (
     <Fragment>
-        <div className='ProductDetails'>
-            <div>
-                <Carousel>
-                    {product.images && 
-                        product.images.map( (item, i) => (
-                            <img 
-                            className='CarouselImage'
-                            key={item.url}
-                            src={item.url}
-                            alt={`${i} Slide`}
-                              />
-                        ))
-                    }
-                </Carousel>
-            </div>
-
-
-            <div>
-                <div className='detailsBlock-1'>
-                    <h2>{product.name}</h2>
-                    <p>Product # {product._id}</p>
-                </div>
-
-                <div>
-                    <span>({product.numOfReviews} Reviews)</span>
-                </div>
-            </div>
-
+      test ignr
+      <div className='ProductDetails'>
+        <div>
+          <Carousel>
+            {product && product.images && 
+              product.images.map((item, i) => (
+                <img 
+                className='CarouselImage'
+                  key={item.url}
+                  src={item.url}
+                  alt={`${i} Slide`}
+                />
+              ))
+            }
+          </Carousel>
         </div>
+
+        <div>
+          <div className='detailsBlock-1'>
+            <h4>{product.name}</h4>
+            <p>Product # {product._id}</p>
+          </div>
+
+          <div className='detailsBlock-2'>
+            <ReactStars {...options}/>
+            <span>({product.numOfReviews} {' '} Reviews)</span>
+          </div>
+
+          <div className='detailsBlock-3'>
+            <h1>{`Rs.${product.price}`}</h1>
+            <div className='detailsBlock-3-1'>
+              <div className='detailsBlock-3-1-1'>
+                <button>-</button>
+                <input value="1" type= "number" />
+                <button>+</button>
+              </div> {" "}
+              <button>Add to Cart</button>
+            </div>
+
+            <p>
+              Status:{" "}
+              <b className={product.Stock < 1 ? "redColor" : "greenColor"}>
+                {product.Stock < 1 ? "OutOfStock" : "InStock"}
+              </b>
+            </p>
+          </div>
+
+          <div className='detailsBlock-4'>
+            Description : <p>{product.description}</p>
+          </div>
+
+          <button className='submitReview'>Submit Review</button>
+        </div>
+      </div>
     </Fragment>
   )
 }
+
 
 export default ProductDetails
