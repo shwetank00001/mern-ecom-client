@@ -7,6 +7,9 @@ import ReactStars from 'react-rating-stars-component'
 import { useParams } from 'react-router-dom';
 import './ProductDetails.css'
 
+
+import ReviewCard from './ReviewCard'
+
  
 const ProductDetails = () => {
   const dispatch = useDispatch()  
@@ -30,8 +33,8 @@ const ProductDetails = () => {
 
 
   return (
-    <Fragment>
-      test ignr
+    <Fragment>    
+      test 123
       <div className='ProductDetails'>
         <div>
           <Carousel>
@@ -39,7 +42,7 @@ const ProductDetails = () => {
               product.images.map((item, i) => (
                 <img 
                 className='CarouselImage'
-                  key={item.url}
+                  key={item._id}
                   src={item.url}
                   alt={`${i} Slide`}
                 />
@@ -64,7 +67,7 @@ const ProductDetails = () => {
             <div className='detailsBlock-3-1'>
               <div className='detailsBlock-3-1-1'>
                 <button>-</button>
-                <input value="1" type= "number" />
+                <input value={1} type= "number" />
                 <button>+</button>
               </div> {" "}
               <button>Add to Cart</button>
@@ -85,6 +88,19 @@ const ProductDetails = () => {
           <button className='submitReview'>Submit Review</button>
         </div>
       </div>
+
+      <h3 className='reviewsHeading'>REVIEWS</h3>
+      {
+        product.reviews && product.reviews[0] ? (
+          <div className='reviews'> 
+          {
+            product.reviews  && product.reviews.map( (review) => <ReviewCard review ={review} />)
+          }
+          </div>
+        ) : (
+          <p className='noReviews'>No Reviews Yet</p>
+        )
+      }
     </Fragment>
   )
 }

@@ -6,16 +6,15 @@
     box-sizing: border-box;
     display: flex;
   }
-  
+
+
   .ProductDetails > div {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    align-items: center;
     padding: 2vmax;
     box-sizing: border-box;
-    border: 1px solid white;
   }
   
   .ProductDetails > div:last-child {
@@ -24,8 +23,13 @@
   
   .CarouselImage {
     width: 20vmax;
+    border: 2px solid black;
+    height: auto;
   }
-  
+  .CarouselImage > img {
+    max-width: 50%;
+    max-height: 50%   
+  }
   .detailsBlock-1 > h2 {
     color: rgb(54, 54, 54);
     font: 600 1.6vmax "Roboto";
@@ -57,7 +61,7 @@
   
   .detailsBlock-3 > h1 {
     color: rgba(17, 17, 17, 0.795);
-    font: 400 1.8vmax "Franklin Gothic Medium";
+    font: 400 1.8vmax "Roboto";
     margin: 1vmax 0;
   }
   .detailsBlock-3-1 {
@@ -120,7 +124,7 @@
   
   .detailsBlock-4 > p {
     color: rgba(0, 0, 0, 0.534);
-    font: 300 0.8vmax sans-serif;
+    font: 300 0.8vmax "roboto";
   }
   
   .submitReview {
@@ -192,7 +196,7 @@
   }
   
   .noReviews {
-    font: 400 1.3vmax "Gill Sans";
+    font: 400 1.3vmax "Roboto";
     text-align: center;
     color: rgba(0, 0, 0, 0.548);
   }
