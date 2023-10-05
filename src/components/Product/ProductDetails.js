@@ -1,114 +1,77 @@
-import React, { Fragment } from 'react'
-import Carousel from 'react-material-ui-carousel'
-import { useSelector, useDispatch } from 'react-redux'
-import { getProductDetails } from '../../actions/productAction'
-
-import ReactStars from 'react-rating-stars-component'
+import React, { Fragment, useEffect } from 'react';
+import Carousel from 'react-material-ui-carousel';
+import { useSelector, useDispatch } from 'react-redux';
+import { getProductDetails } from '../../actions/productAction';
+import ReactStars from 'react-rating-stars-component';
 import { useParams } from 'react-router-dom';
-import './ProductDetails.css'
+import './ProductDetails.css'; // Import your custom CSS for styling
+import Loader from '../layout/loader/Loader';
+import ReviewCard from './ReviewCard';
 
-import Loader from '../layout/loader/Loader'
-
-
-import ReviewCard from './ReviewCard'
-
- 
 const ProductDetails = () => {
-  const dispatch = useDispatch()  
-  const { product, loading, error } = useSelector(state => state.productDetails) 
-  let { id } = useParams();
+    const dispatch = useDispatch();
+    const { product, loading, error } = useSelector((state) => state.productDetails);
+    const { id } = useParams();
 
-  React.useEffect(() => {
-    dispatch(getProductDetails(id))
-    console.log(id)
-  }, [dispatch, id])
+    useEffect(() => {
+        // Dispatch an action to fetch product details based on the provided ID
+        dispatch(getProductDetails(id));
+    }, [dispatch, id]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+    const options = {
+        value: product?.ratings || 0, // Provide a default value if product is undefined
+        readOnly: true,
+        precision: 0.5,
+    };
 
-  const options = {
-    value: product.ratings,
-    readOnly: true,
-    precision: 0.5,
-  };
-
-
-  return (
-    <Fragment>
-      { loading ? <Loader /> :
-          <Fragment>    
-          test 123
-          <div className='ProductDetails'>
-            <div>
-              <Carousel>
-                {product && product.images && 
-                  product.images.map((item, i) => (
-                    <img 
-                    className='CarouselImage'
-                      key={item._id}
-                      src={item.url}
-                      alt={`${i} Slide`}
-                    />
-                  ))
-                }
-              </Carousel>
-            </div>
-    
-            <div>
-              <div className='detailsBlock-1'>
-                <h4>{product.name}</h4>
-                <p>Product # {product._id}</p>
-              </div>
-    
-              <div className='detailsBlock-2'>
-                <ReactStars {...options}/>
-                <span>({product.numOfReviews} {' '} Reviews)</span>
-              </div>
-    
-              <div className='detailsBlock-3'>
-                <h1>{`Rs.${product.price}`}</h1>
-                <div className='detailsBlock-3-1'>
-                  <div className='detailsBlock-3-1-1'>
-                    <button>-</button>
-                    <input value={1} type= "number" />
-                    <button>+</button>
-                  </div> {" "}
-                  <button>Add to Cart</button>
-                </div>
-    
-                <p>
-                  Status:{" "}
-                  <b className={product.Stock < 1 ? "redColor" : "greenColor"}>
-                    {product.Stock < 1 ? "Out Of Stock" : "In Stock"}
-                  </b>
-                </p>
-              </div>
-    
-              <div className='detailsBlock-4'>
-                Description : <p>{product.description}</p>
-              </div>
-    
-              <button className='submitReview'>Submit Review</button>
-            </div>
-          </div>
-    
-          <h3 className='reviewsHeading'>REVIEWS</h3>
-          {
-            product.reviews && product.reviews[0] ? (
-              <div className='reviews'> 
-              {
-                product.reviews  && product.reviews.map( (review) => <ReviewCard review ={review} />)
-              }
-              </div>
+    return (
+        <Fragment>
+            {loading ? (
+                <Loader />
             ) : (
-              <p className='noReviews'>No Reviews Yet</p>
-            )
-          }
-        </Fragment> } 
-    </Fragment>
-  )
-}
+                <Fragment>
+                    {error ? (
+                        <div className='error-message'>Error: {error.message}</div>
+                    ) : (
+                        <div className='product-details-container'>
+                            <div className='product-image-carousel'>
+                                <Carousel>
+                                    {product?.images &&
+                                        product.images.map((item, i) => (
+                                            <img
+                                                className='product-image'
+                                                key={item._id || i}
+                                                src={item.url || '/default-image.jpg'}
+                                                alt={`${i} Slide`}
+                                            />
+                                        ))}
+                                </Carousel>
+                            </div>
+                            <div className='product-info'>
+                                <h4 className='product-name'>{product?.name || 'Example Product Name'}</h4>
+                                <p className='product-price'>Price: Rs.{product?.price || '100.00'}</p>
+                                <p className='product-id'>Product ID: {product?._id || '12345'}</p>
+                                <p className='product-description'>
+                                    Description: {product?.description || 'This is a sample product description.'}
+                                </p>
+                                <ReactStars {...options} className='product-ratings' />
+                                <span className='product-review-count'>({product?.numOfReviews || 0} Reviews)</span>
+                                <p className={`product-stock ${product?.Stock < 1 ? 'out-of-stock' : 'in-stock'}`}>
+                                    {product?.Stock < 1 ? 'Out of Stock' : 'In Stock'}
+                                </p>
+                                <div className='product-actions'>
+                                    <button className='product-decrement-button'>-</button>
+                                    <input className='product-quantity-input' value={1} type='number' />
+                                    <button className='product-increment-button'>+</button>
+                                    <button className='product-add-to-cart-button'>Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </Fragment>
+            )}
+        </Fragment>
+    );
+};
 
-
-export default ProductDetails
+export default ProductDetails;

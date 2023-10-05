@@ -9,11 +9,13 @@
     position: fixed;
     top: 0%;
     left: 0;
+    border-radius: 2px;
   }
   
   .searchBox > input[type="text"] {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.274);
     background-color: white;
+
     border: none;
     color: rgba(0, 0, 0, 0.637);
     padding: 1vmax 2vmax;
