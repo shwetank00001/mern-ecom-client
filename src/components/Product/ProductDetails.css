@@ -23,13 +23,9 @@
   
   .CarouselImage {
     width: 20vmax;
-    border: 2px solid black;
-    height: auto;
+
   }
-  .CarouselImage > img {
-    max-width: 50%;
-    max-height: 50%   
-  }
+
   .detailsBlock-1 > h2 {
     color: rgb(54, 54, 54);
     font: 600 1.6vmax "Roboto";
