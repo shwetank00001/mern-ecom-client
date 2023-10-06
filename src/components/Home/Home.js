@@ -17,7 +17,7 @@ const Home = () => {
 
   React.useEffect( () => {
     dispatch(getProduct())  
-    console.log({"Error" : products})
+    console.log({"Home JS" : products})
   }, [dispatch] )
 
 

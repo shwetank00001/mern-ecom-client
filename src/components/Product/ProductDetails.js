@@ -14,12 +14,11 @@ const ProductDetails = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        // Dispatch an action to fetch product details based on the provided ID
         dispatch(getProductDetails(id));
     }, [dispatch, id]);
 
     const options = {
-        value: product?.ratings || 0, // Provide a default value if product is undefined
+        value: product?.ratings || 0, 
         readOnly: true,
         precision: 0.5,
     };
@@ -67,6 +66,15 @@ const ProductDetails = () => {
                                 </div>
                             </div>
                         </div>
+                    )}
+                    {product && product.reviews && product.reviews[0] ? (
+                        <div className="reviews">
+                            {product.reviews.map((review) => (
+                                <ReviewCard key={review._id} review={review} />
+                            ))}
+                        </div>
+                    ) : (
+                        <p className="noReviews">No Reviews Yet</p>
                     )}
                 </Fragment>
             )}

@@ -10,10 +10,10 @@ import {
     PRODUCT_DETAILS_FAIL,
     CLEAR_ERRORS } from '../constants/productConstants'
 
-export const getProduct = (keyword= "", currentPage= 1)=> async ( dispatch ) => {
+export const getProduct = (keyword= "", currentPage= 1, price= [0, 80000])=> async ( dispatch ) => {
     try {
 
-        const {data} = await axios.get(`http://localhost:5000/api/v1/products?keyword=${keyword}&page=${currentPage}` )
+        const {data} = await axios.get(`http://localhost:5000/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lt]=${price[1]}` )
         console.log("The data has been received by the redux:-", data)
         dispatch( { type: ALL_PRODUCT_SUCCESS, payload : data} )
         console.log("working")

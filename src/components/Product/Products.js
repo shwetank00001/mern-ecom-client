@@ -12,10 +12,9 @@ const Products = () => {
     const dispatch = useDispatch();
 
     const [currentPage, setCurrentPage] = React.useState(1);
+    const [price, setPrice] = React.useState([0, 25000]);
 
-    const [price, setPrice] = React.useState([0, 800000])
-
-    const { products, loading, error, productsCount, resultPerPage } = useSelector((state) => state.products);
+    const { products, loading, error, productsCount, resultPerPage, filteredProductsCount } = useSelector((state) => state.products);
 
     const { keyword } = useParams();
 
@@ -23,23 +22,17 @@ const Products = () => {
         setCurrentPage(e);
     };
 
-    useEffect(() => {
+    useEffect( () => {
         if (keyword) {
-            setCurrentPage(1);
-            dispatch(getProduct(keyword, 2));
+            dispatch(getProduct(keyword, currentPage, price));
         }
-    }, [dispatch, keyword]);
+    }, [dispatch, keyword, currentPage, price]);
 
+    let count = filteredProductsCount
 
-    useEffect(() => {
-        if (keyword) {
-            dispatch(getProduct(keyword, currentPage));
-        }
-    }, [dispatch, keyword, currentPage]);
-
-    function priceHandler(e, newPrice){
-        setPrice(newPrice)
-    }
+    const priceHandler = (event, newPrice) => {
+        setPrice(newPrice);
+      };
 
     return (
         <Fragment>
@@ -56,22 +49,20 @@ const Products = () => {
                     </div>
 
                     <div className='filterBox'>
-                        <Typography>
-                            Price
-                            <Slider 
-                                value={price}
-                                onChange={priceHandler}
-                                valueLabelDisplay='auto'
-                                aria-labelledby='range-slider'
-                                min={0}
-                                max={800000}
+                    <Typography>Price</Typography>
+                        <Slider
+                        value={price}
+                        onChange={priceHandler}
+                        valueLabelDisplay="auto"
+                        aria-labelledby="range-slider"
+                        min={0}
+                        max={25000}
+                        />
 
-                            />
-                        </Typography>
 
                     </div>
 
-                    {resultPerPage < productsCount && (
+                    {resultPerPage < count && (
                         <div className='paginationbox'>
                             <Pagination
                                 activePage={currentPage}
