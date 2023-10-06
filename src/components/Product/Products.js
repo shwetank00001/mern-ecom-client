@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Product from '../Home/Product';
 import Loader from '../layout/loader/Loader';
@@ -6,38 +6,37 @@ import { getProduct } from '../../actions/productAction';
 import './Products.css';
 import { useParams } from 'react-router-dom';
 import Pagination from 'react-js-pagination';
-import { Typography, Slider} from '@mui/material';
+import { Typography, Slider } from '@mui/material';
+import MetaData from '../layout/MetaData';
 
-const categories = ["Laptop", "Footwear", "Bottom", "Tops", "Attire", "Camera", "SmartPhones"]
+const categories = ["Laptop", "Footwear", "Bottom", "Tops", "Attire", "Camera", "SmartPhones"];
 
 const Products = () => {
     const dispatch = useDispatch();
-
-    const [currentPage, setCurrentPage] = React.useState(1);
-    const [price, setPrice] = React.useState([0, 25000]);
-    const [category, setCategory] = React.useState("")
-    const [ratings ,setRatings] = React.useState(0)
-
     const { products, loading, error, productsCount, resultPerPage, filteredProductsCount } = useSelector((state) => state.products);
-
     const { keyword } = useParams();
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [price, setPrice] = useState([0, 25000]);
+    const [category, setCategory] = useState("");
+    const [ratings, setRatings] = useState(0);
 
     const setCurrentPageNo = (e) => {
         setCurrentPage(e);
     };
 
-
-    useEffect( () => {
-        if (keyword) {
+    useEffect(() => {
+        if (!products || keyword || price[0] !== 0 || price[1] !== 25000 || category || ratings !== 0) {
+            // Fetch data only if there are filters or if products are not already loaded
             dispatch(getProduct(keyword, currentPage, price, category, ratings));
         }
-    }, [dispatch, keyword, currentPage, price]);
-
-    let count = filteredProductsCount
+    }, [dispatch, keyword, currentPage, price, category, ratings]);
 
     const priceHandler = (event, newPrice) => {
         setPrice(newPrice);
-      };
+    };
+
+    let count = filteredProductsCount;
 
     return (
         <Fragment>
@@ -45,6 +44,7 @@ const Products = () => {
                 <Loader />
             ) : (
                 <Fragment>
+                    <MetaData title="Products-home" />
                     <h2 className='productsHeading'>Products</h2>
                     <div className='products'>
                         {products &&
@@ -54,45 +54,40 @@ const Products = () => {
                     </div>
 
                     <div className='filterBox'>
-                    <Typography>Price</Typography>
+                        <Typography>Price</Typography>
                         <Slider
-                        value={price}
-                        onChange={priceHandler}
-                        valueLabelDisplay="auto"
-                        aria-labelledby="range-slider"
-                        min={0}
-                        max={25000}
+                            value={price}
+                            onChange={priceHandler}
+                            valueLabelDisplay="auto"
+                            aria-labelledby="range-slider"
+                            min={0}
+                            max={25000}
                         />
-                    <Typography>Categories</Typography>
-                    <ul className='categoryBox'>
-                        {
-                            categories.map( (item) => (
-                                <li 
-                                className='category-link'
-                                key={item}
-                                onClick={ () => setCategory(item)} 
+                        <Typography>Categories</Typography>
+                        <ul className='categoryBox'>
+                            {categories.map((item) => (
+                                <li
+                                    className='category-link'
+                                    key={item}
+                                    onClick={() => setCategory(item)}
                                 >
                                     {item}
                                 </li>
-                            ) )
-                        }
-                    </ul>
+                            ))}
+                        </ul>
 
-                    <fieldset>
-                        <Typography component="legend">Ratings Above</Typography>
-                        <Slider
-                        value={ratings}
-                        onChange={(e, newRatings) => {
-                            setRatings(newRatings)
-                        } } 
-                        aria-labelledby='continuous-slider'
-                        min={0}
-                        max={5}
-                        />
-
-                    </fieldset>
-
-
+                        <fieldset>
+                            <Typography component="legend">Ratings Above</Typography>
+                            <Slider
+                                value={ratings}
+                                onChange={(e, newRatings) => {
+                                    setRatings(newRatings);
+                                }}
+                                aria-labelledby='continuous-slider'
+                                min={0}
+                                max={5}
+                            />
+                        </fieldset>
                     </div>
 
                     {resultPerPage < count && (
