@@ -10,7 +10,7 @@ import {
     PRODUCT_DETAILS_FAIL,
     CLEAR_ERRORS } from '../constants/productConstants'
 
-export const getProduct = (keyword= "", currentPage= 1, price= [0, 80000])=> async ( dispatch ) => {
+export const getProduct = (keyword= "", currentPage= 1, price= [0, 25000], category)=> async ( dispatch ) => {
     try {
 
         const {data} = await axios.get(`http://localhost:5000/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lt]=${price[1]}` )

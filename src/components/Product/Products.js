@@ -8,11 +8,14 @@ import { useParams } from 'react-router-dom';
 import Pagination from 'react-js-pagination';
 import { Typography, Slider} from '@mui/material';
 
+const categories = ["Laptop", "Footwear", "Bottom", "Tops", "Attire", "Camera", "SmartPhones"]
+
 const Products = () => {
     const dispatch = useDispatch();
 
     const [currentPage, setCurrentPage] = React.useState(1);
     const [price, setPrice] = React.useState([0, 25000]);
+    const [category, setCategory] = React.useState("")
 
     const { products, loading, error, productsCount, resultPerPage, filteredProductsCount } = useSelector((state) => state.products);
 
@@ -22,9 +25,10 @@ const Products = () => {
         setCurrentPage(e);
     };
 
+
     useEffect( () => {
         if (keyword) {
-            dispatch(getProduct(keyword, currentPage, price));
+            dispatch(getProduct(keyword, currentPage, price, category));
         }
     }, [dispatch, keyword, currentPage, price]);
 
@@ -58,6 +62,20 @@ const Products = () => {
                         min={0}
                         max={25000}
                         />
+                    <Typography>Categories</Typography>
+                    <ul className='categoryBox'>
+                        {
+                            categories.map( (item) => (
+                                <li 
+                                className='category-link'
+                                key={item.id}
+                                onClick={ () => setCategory(item)} 
+                                >
+                                    {item}
+                                </li>
+                            ) )
+                        }
+                    </ul>
 
 
                     </div>
