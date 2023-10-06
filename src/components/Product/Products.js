@@ -16,6 +16,7 @@ const Products = () => {
     const [currentPage, setCurrentPage] = React.useState(1);
     const [price, setPrice] = React.useState([0, 25000]);
     const [category, setCategory] = React.useState("")
+    const [ratings ,setRatings] = React.useState(0)
 
     const { products, loading, error, productsCount, resultPerPage, filteredProductsCount } = useSelector((state) => state.products);
 
@@ -28,7 +29,7 @@ const Products = () => {
 
     useEffect( () => {
         if (keyword) {
-            dispatch(getProduct(keyword, currentPage, price, category));
+            dispatch(getProduct(keyword, currentPage, price, category, ratings));
         }
     }, [dispatch, keyword, currentPage, price]);
 
@@ -68,7 +69,7 @@ const Products = () => {
                             categories.map( (item) => (
                                 <li 
                                 className='category-link'
-                                key={item.id}
+                                key={item}
                                 onClick={ () => setCategory(item)} 
                                 >
                                     {item}
@@ -76,6 +77,20 @@ const Products = () => {
                             ) )
                         }
                     </ul>
+
+                    <fieldset>
+                        <Typography component="legend">Ratings Above</Typography>
+                        <Slider
+                        value={ratings}
+                        onChange={(e, newRatings) => {
+                            setRatings(newRatings)
+                        } } 
+                        aria-labelledby='continuous-slider'
+                        min={0}
+                        max={5}
+                        />
+
+                    </fieldset>
 
 
                     </div>

@@ -42,7 +42,7 @@ const Home = () => {
             </a>
         </div>
 
-        <h2 className="homeHeading"> All Products   </h2>
+        <h2 className="homeHeading"> Featured Products are:-   </h2>
 
 
         <div className="container" id="container">

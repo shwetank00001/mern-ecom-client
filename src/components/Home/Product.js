@@ -6,7 +6,7 @@ import ReactStars from 'react-rating-stars-component'
 const Product = ({product}) => {
 
   const options = {
-    value: product.rating,
+    value: product.ratings,
     readOnly: true,
     precision: 0.5,
   };
