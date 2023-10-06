@@ -6,11 +6,14 @@ import { getProduct } from '../../actions/productAction';
 import './Products.css';
 import { useParams } from 'react-router-dom';
 import Pagination from 'react-js-pagination';
+import { Typography, Slider} from '@mui/material';
 
 const Products = () => {
     const dispatch = useDispatch();
 
     const [currentPage, setCurrentPage] = React.useState(1);
+
+    const [price, setPrice] = React.useState([0, 800000])
 
     const { products, loading, error, productsCount, resultPerPage } = useSelector((state) => state.products);
 
@@ -22,9 +25,21 @@ const Products = () => {
 
     useEffect(() => {
         if (keyword) {
+            setCurrentPage(1);
+            dispatch(getProduct(keyword, 2));
+        }
+    }, [dispatch, keyword]);
+
+
+    useEffect(() => {
+        if (keyword) {
             dispatch(getProduct(keyword, currentPage));
         }
     }, [dispatch, keyword, currentPage]);
+
+    function priceHandler(e, newPrice){
+        setPrice(newPrice)
+    }
 
     return (
         <Fragment>
@@ -40,6 +55,22 @@ const Products = () => {
                             ))}
                     </div>
 
+                    <div className='filterBox'>
+                        <Typography>
+                            Price
+                            <Slider 
+                                value={price}
+                                onChange={priceHandler}
+                                valueLabelDisplay='auto'
+                                aria-labelledby='range-slider'
+                                min={0}
+                                max={800000}
+
+                            />
+                        </Typography>
+
+                    </div>
+
                     {resultPerPage < productsCount && (
                         <div className='paginationbox'>
                             <Pagination
@@ -47,10 +78,10 @@ const Products = () => {
                                 itemsCountPerPage={resultPerPage}
                                 totalItemsCount={productsCount}
                                 onChange={setCurrentPageNo}
-                                nextPageText='Next'
-                                prevPageText='Previous'
-                                firstPageText='1st'
-                                lastPageText='Last'
+                                nextPageText='>'
+                                prevPageText='<'
+                                firstPageText='<<'
+                                lastPageText='>>'
                                 itemClass='page-item'
                                 linkClass='page-link'
                                 activeClass='pageItemActive'
