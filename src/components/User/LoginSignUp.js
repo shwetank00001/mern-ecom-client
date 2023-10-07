@@ -14,6 +14,18 @@ const LoginSignUp = () => {
     const [loginEmail, setLoginEmail] = React.useState("")
     const [loginPassword, setLoginPassword] = React.useState("")
 
+    const [ user, setUser ] = React.useState({
+        name : "",
+        email: "",
+        password : ""
+    })
+
+    const { name, email, password } = user;
+
+    const [ avatar, setAvatar ] = React.useState();
+    const [ avatarPreview, setAvatarPreview ] = React.useState("/Profile.png")
+
+
 
     const switchTabs = (e, tab) => {
         if( tab === "login"){
@@ -33,15 +45,33 @@ const LoginSignUp = () => {
     }
 
     const loginSubmit = () => {
-        console.log("Login")
+        console.log("Login form submitted")
     }
 
-    function registerSubmit(){
-        console.log("A")
+    function registerSubmit(e){
+        e.preventDefault()
+
+        const myForm = new FormData()
+        myForm.set("name", name)
+        myForm.set("email", email)
+        myForm.set("password", password)
+        myForm.set("avatar", avatar)
+        console.log("Sign Up form submitted")
     }
 
-    function registerDataChange(){
-        console.log("a")
+    function registerDataChange(e){
+        if(e.target.name === "avatar"){
+            const reader = new FileReader()
+
+            reader.onload = () => {
+                if(reader.readyState === 2){
+                    setAvatarPreview(reader.result)
+                }
+            }
+            reader.readAsDataURL(e.target.files[0])
+        }else{
+            setUser({ ...user, [e.target.name]: e.target.value})
+        }
     }
 
 
@@ -126,7 +156,7 @@ const LoginSignUp = () => {
                     />
                 </div>
                 <div className='registerImage'>
-                    <img src={avatarPrivew} alt='Avatar Preview' />
+                    <img src={avatarPreview} alt='Avatar Preview' />
                     <input 
                         type='file'
                         name='avatar'
@@ -135,7 +165,7 @@ const LoginSignUp = () => {
                         onChange={registerDataChange}
                     />
                 </div>
-
+                <input type='submit' value="Register" className='signUpBtn' />
                 </form>
 
 
