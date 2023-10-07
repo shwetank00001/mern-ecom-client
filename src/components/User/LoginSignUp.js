@@ -3,6 +3,7 @@ import './LoginSignUp.css'
 import Loader from '../layout/loader/Loader';
 import { Link } from 'react-router-dom';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import FaceIcon from '@mui/icons-material/LockOpen';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 const LoginSignUp = () => {
 
@@ -12,6 +13,7 @@ const LoginSignUp = () => {
 
     const [loginEmail, setLoginEmail] = React.useState("")
     const [loginPassword, setLoginPassword] = React.useState("")
+
 
     const switchTabs = (e, tab) => {
         if( tab === "login"){
@@ -32,6 +34,14 @@ const LoginSignUp = () => {
 
     const loginSubmit = () => {
         console.log("Login")
+    }
+
+    function registerSubmit(){
+        console.log("A")
+    }
+
+    function registerDataChange(){
+        console.log("a")
     }
 
 
@@ -73,6 +83,62 @@ const LoginSignUp = () => {
                     <Link to="/password/forget">Forgot Password ?</Link>
                     <input type='submit' value="Login" className='loginBtn' />
                 </form>
+
+                <form 
+                    className='signUpForm'
+                    ref={registerTab}
+                    encType='multipart/form-data'  // we use this because we are addiing image aswelll.
+                    onSubmit={registerSubmit}
+                >
+
+                <div className='signUpName'>
+                    <FaceIcon />
+                    <input 
+                        type='text'
+                        placeholder='Name'
+                        required
+                        name='name'
+                        value={name}
+                        onChange={registerDataChange}
+                    />
+                </div>
+
+                <div className='signUpEmail'>
+                    <MailOutlineIcon />
+                    <input 
+                        type='text'
+                        placeholder='Name'
+                        required
+                        name='name'
+                        value={email}
+                        onChange={registerDataChange}
+                    />
+                </div>
+                <div className='signUpPassword'>
+                    <LockOpenIcon />
+                    <input 
+                        type='password'
+                        placeholder='Password'
+                        required
+                        name='password'
+                        value={password}
+                        onChange={registerDataChange}
+                    />
+                </div>
+                <div className='registerImage'>
+                    <img src={avatarPrivew} alt='Avatar Preview' />
+                    <input 
+                        type='file'
+                        name='avatar'
+                        accept='image/*'
+                        value={password}
+                        onChange={registerDataChange}
+                    />
+                </div>
+
+                </form>
+
+
 
             </div>
         </div>
