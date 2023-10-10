@@ -8,8 +8,8 @@ import LockOpenIcon from '@mui/icons-material/LockOpen';
 
 
 import { useDispatch, useSelector } from 'react-redux'
-import { clearErrors, login } from '../../actions/userAction'
-import { useNavigate } from 'react-router-dom';
+import { clearErrors, login, register } from '../../actions/userAction'
+import { useNavigate, useHistory } from 'react-router-dom';
 
 
 import { useAlert } from 'react-alert'
@@ -21,7 +21,7 @@ const LoginSignUp = ( ) => {
   const dispatch = useDispatch()
   const { loading, error, isAuthenticated} = useSelector( (state) => state.user )
 
-  const history = useNavigate()
+  const nav = useNavigate()
 
     const loginTab = useRef(null)
     const registerTab = useRef(null)
@@ -49,9 +49,9 @@ const LoginSignUp = ( ) => {
       }
 
       if(isAuthenticated){
-        history('/account')
+        nav('/account')
       }
-    }, [dispatch, alert, error, history, isAuthenticated])
+    }, [dispatch, alert, error, nav, isAuthenticated])
 
     const switchTabs = (e, tab) => {
         if( tab === "login"){
@@ -90,6 +90,7 @@ const LoginSignUp = ( ) => {
         myForm.set("password", password)
         myForm.set("avatar", avatar)
         console.log("Sign Up form submitted")
+        dispatch(register(myForm))
     }
 
     function registerDataChange(e){
