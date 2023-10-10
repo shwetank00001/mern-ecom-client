@@ -46,6 +46,7 @@ const LoginSignUp = ( ) => {
       if(error){
         alert("Invalid User or Password !")
         dispatch(clearErrors)
+        console.log("error is", error)
       }
 
       if(isAuthenticated){

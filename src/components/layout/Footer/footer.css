@@ -1,50 +1,66 @@
-/* footer.css */
+/* CSS for Enhanced Footer Design */
+
 footer {
-    font-family: Roboto;
-    display: flex;
-    justify-content: space-between;
-    background-color: #000;
-    color: #fff;
-    padding: 20px;
-  }
-  
-  .leftFooter, .midFooter, .rightFooter {
-    flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #36393f;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+}
+
+.leftFooter, .midFooter, .rightFooter {
+  flex: 1;
+  padding: 10px;
+}
+
+.leftFooter img, .midFooter h1, .midFooter h4, .rightFooter a {
+  margin-bottom: 10px;
+}
+
+.leftFooter h4, .midFooter h4, .rightFooter h4 {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.leftFooter img {
+  max-width: 100%;
+  height: auto;
+}
+
+.leftFooter p, .rightFooter a {
+  font-size: 0.9em;
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.leftFooter p:hover, .rightFooter a:hover {
+  color: #7289da;
+}
+
+.midFooter h1 {
+  font-size: 2.5em;
+  margin: 0;
+}
+
+.rightFooter a {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.rightFooter a:last-child {
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 768px) {
+  footer {
+    flex-direction: column;
     text-align: center;
   }
-  
-  .leftFooter h4, .rightFooter h4 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+
+  .leftFooter, .midFooter, .rightFooter {
+    margin-bottom: 20px;
   }
-  
-  .midFooter h1 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-  
-  .midFooter h4 {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-  }
-  
-  .midFooter p {
-    font-size: 1rem;
-  }
-  
-  .leftFooter img, .midFooter img {
-    width: 150px;
-    margin: 10px;
-  }
-  
-  .rightFooter a {
-    text-decoration: none;
-    color: #fff;
-    font-size: 1rem;
-    margin: 5px;
-  }
-  
-  .rightFooter a:hover {
-    text-decoration: underline;
-  }
-  
+}
