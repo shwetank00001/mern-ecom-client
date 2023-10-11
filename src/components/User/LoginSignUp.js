@@ -46,7 +46,11 @@ const LoginSignUp = ( ) => {
       if(error){
         alert("Invalid User or Password !")
         dispatch(clearErrors)
+<<<<<<< HEAD
         console.log("The Error:-", error)
+=======
+        console.log("error is", error)
+>>>>>>> 4423e4476b62d3b2acaa6632cf056db5f22074b1
       }
 
       if(isAuthenticated){

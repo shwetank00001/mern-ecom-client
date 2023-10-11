@@ -17,6 +17,10 @@ import { loadUser } from './actions/userAction';
 import { useSelector } from 'react-redux';
 
 
+import store from './store'
+import { loadUser } from './actions/userAction';
+
+
 const App = () => {
 
 
