@@ -46,12 +46,11 @@ const LoginSignUp = ( ) => {
       if(error){
         alert("Invalid User or Password !")
         dispatch(clearErrors)
-        console.log("error is", error)
+        console.log("The Error:-", error)
       }
 
       if(isAuthenticated){
         nav('/account')     
-        alert("Logged In !!!")
       }
     }, [dispatch, alert, error, nav, isAuthenticated])
 
