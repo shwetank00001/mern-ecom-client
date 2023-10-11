@@ -8,7 +8,8 @@ import {
   REGISTER_USER_FAIL,
   LOAD_USER_REQUEST,
   LOAD_USER_SUCCESS,
-  LOAD_USER_FAIL } from '../constants/userContants'
+  LOAD_USER_FAIL
+ } from '../constants/user q  Contants'
 
 import axios from 'axios'
 
@@ -40,7 +41,6 @@ export const login = (email, password) => async (dispatch) =>{
 
 // register- need to fix image
 export const register = (userData) => async (dispatch) => {
-<<<<<<< HEAD
   try {
     dispatch({ type: REGISTER_USER_REQUEST });
 
@@ -52,15 +52,15 @@ export const register = (userData) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: REGISTER_USER_FAIL,
-      payload: error.response.data.message,
+      payload: error,
     });
   }
 };
 
+
   // Load user
 export const loadUser = () => async (dispatch) =>{
-    try {
-=======
+  
     try {
       dispatch({ type: REGISTER_USER_REQUEST });
   
@@ -74,26 +74,13 @@ export const loadUser = () => async (dispatch) =>{
         type: REGISTER_USER_FAIL,
         payload: error.response.data.message,
       });
-    }
+    
   };
   
 
-  // Load user
-export const loadUser = () => async (dispatch) =>{
-
-    try {
-
->>>>>>> 4423e4476b62d3b2acaa6632cf056db5f22074b1
-        dispatch( { type: LOAD_USER_REQUEST });
-        const { data } = await axios.get(`http://localhost:5000/api/v1/login/me`)
-        dispatch({type: LOAD_USER_SUCCESS, payload: data.user })
-    } catch (error) {
-        dispatch({type: LOAD_USER_FAIL, payload: error })
-    }
-}
 
 
   //errors
-export const clearErrors = async ( dispatch ) => {
-    dispatch( { type: CLEAR_ERRORS })
-}
+  export const clearErrors = () => async (dispatch) => {
+    dispatch({ type: CLEAR_ERRORS });
+  }
