@@ -8,7 +8,9 @@ import {
   REGISTER_USER_FAIL,
   LOAD_USER_REQUEST,
   LOAD_USER_SUCCESS,
-  LOAD_USER_FAIL
+  LOAD_USER_FAIL,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAIL,
  } from '../constants/userContants'
 
 import axios from 'axios'
@@ -79,6 +81,27 @@ export const register = (userData) => async (dispatch) => {
         dispatch({type: LOAD_USER_SUCCESS, payload: data.user })
     } catch (error) {
         dispatch({type: LOAD_USER_FAIL, payload: error.message })
+    }
+}
+  export const logout = () => async (dispatch) =>{
+
+    try {
+        dispatch( { type: LOAD_USER_REQUEST });
+
+        const config = {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+          }
+        };
+        await axios.get(
+            `http://localhost:5000/api/v1/logout`, 
+            config
+            )
+
+        dispatch({type: LOGOUT_SUCCESS })
+    } catch (error) {
+        dispatch({type: LOGOUT_FAIL, payload: error.message })
     }
 }
 

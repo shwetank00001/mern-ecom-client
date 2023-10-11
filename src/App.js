@@ -9,7 +9,7 @@ import Products from './components/Product/Products';
 import Home from './components/Home/Home';
 import Search from './components/Product/Search';
 import LoginSignUp from './components/User/LoginSignUp'
-// import UserOption from './components/layout/Header/Useroption';
+import UserOption from './components/layout/Header/UserOption';
 
 
 import store from './store'
@@ -17,6 +17,8 @@ import { useSelector } from 'react-redux';
 import { loadUser } from './actions/userAction';
 
 const App = () => {
+
+    const {isAuthenticated, user } = useSelector( state=> state.user)
 
     const {} = useSelector( state => state.user)
     React.useEffect(() => {
@@ -32,7 +34,7 @@ const App = () => {
         <div>
             <Header />
 
-            {/* { isAuthenticated && <UserOption user = {user} />} */}
+            { isAuthenticated && <UserOption user = {user} />}
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route exact path='/product/:id' element={<ProductDetails />} />
