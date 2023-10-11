@@ -13,16 +13,10 @@ import LoginSignUp from './components/User/LoginSignUp'
 
 
 import store from './store'
-import { loadUser } from './actions/userAction';
 import { useSelector } from 'react-redux';
-
-
-import store from './store'
 import { loadUser } from './actions/userAction';
-
 
 const App = () => {
-
 
     const {} = useSelector( state => state.user)
     React.useEffect(() => {
@@ -31,9 +25,7 @@ const App = () => {
                 families: ['Roboto', 'Droid Sans'],
             },
         });
-
         store.dispatch(loadUser())
-
     }, []);
 
     return (

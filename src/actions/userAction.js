@@ -9,7 +9,7 @@ import {
   LOAD_USER_REQUEST,
   LOAD_USER_SUCCESS,
   LOAD_USER_FAIL
- } from '../constants/user q  Contants'
+ } from '../constants/userContants'
 
 import axios from 'axios'
 
@@ -57,28 +57,32 @@ export const register = (userData) => async (dispatch) => {
   }
 };
 
-
   // Load user
-export const loadUser = () => async (dispatch) =>{
-  
+
+  export const loadUser = () => async (dispatch) =>{
+
     try {
-      dispatch({ type: REGISTER_USER_REQUEST });
-  
-      const config = { headers: { "Content-Type": "multipart/form-data" } };
-  
-      const { data } = await axios.post(`http://localhost:5000/api/v1/register`, userData, config);
-  
-      dispatch({ type: REGISTER_USER_SUCCESS, payload: data.user });
+        dispatch( { type: LOAD_USER_REQUEST });
+
+        const config = {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+          }
+        };
+        
+        const { data } = await axios.get(
+            `http://localhost:5000/api/v1/me`, 
+            config
+            )
+
+        dispatch({type: LOAD_USER_SUCCESS, payload: data.user })
     } catch (error) {
-      dispatch({
-        type: REGISTER_USER_FAIL,
-        payload: error.response.data.message,
-      });
-    
-  };
+        dispatch({type: LOAD_USER_FAIL, payload: error.message })
+    }
+}
+
   
-
-
 
   //errors
   export const clearErrors = () => async (dispatch) => {
