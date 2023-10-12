@@ -13,12 +13,13 @@ import UserOption from './components/layout/Header/UserOption';
 
 
 import store from './store'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loadUser } from './actions/userAction';
 
 const App = () => {
 
     const {isAuthenticated, user } = useSelector( state=> state.user)
+    const dispatch = useDispatch()
 
     const {} = useSelector( state => state.user)
     React.useEffect(() => {
@@ -27,14 +28,13 @@ const App = () => {
                 families: ['Roboto', 'Droid Sans'],
             },
         });
-        store.dispatch(loadUser())
-    }, []);
+        dispatch(loadUser());
+    }, [ dispatch ]);
 
     return (
         <div>
             <Header />
 
-            { isAuthenticated && <UserOption user = {user} />}
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route exact path='/product/:id' element={<ProductDetails />} />

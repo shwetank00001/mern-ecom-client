@@ -74,6 +74,7 @@ const LoginSignUp = ( ) => {
     const loginSubmit = (e) => {
         e.preventDefault()
         console.log("Login form submitted")
+        console.log(loginEmail)
         dispatch(login( loginEmail, loginPassword ))
     }
 
