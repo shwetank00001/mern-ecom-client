@@ -28,7 +28,6 @@ const App = () => {
                 families: ['Roboto', 'Droid Sans'],
             },
         });
-        dispatch(loadUser());
     }, [ dispatch ]);
 
     return (
