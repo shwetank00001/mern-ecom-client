@@ -5,7 +5,7 @@ import { getProductDetails } from '../../actions/productAction';
 import ReactStars from 'react-rating-stars-component';
 import { useParams } from 'react-router-dom';
 import './ProductDetails.css'; // Import your custom CSS for styling
-import Loader from '../layout/loader/Loader';
+import Loader from '../layout/Loader/Loader';
 import ReviewCard from './ReviewCard';
 
 const ProductDetails = () => {
