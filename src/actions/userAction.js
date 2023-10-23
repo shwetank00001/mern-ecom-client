@@ -61,17 +61,21 @@ export const register = (userData) => async (dispatch) => {
 
   // Load user
 
-  export const loadUser = ( ) => async (dispatch) =>{
+  export const loadUser = () => async (dispatch) =>{
 
     try {
         dispatch( { type: LOAD_USER_REQUEST });
         const { data } = await axios.get(`http://localhost:5000/api/v1/me` )
+        console.log("API Response:", data); // Add this line
 
         dispatch({ type: LOAD_USER_SUCCESS, payload: data.user })
     } catch (error) {
         dispatch({ type: LOAD_USER_FAIL, payload: error.message })
+        console.log(error)
     }
 }
+
+
   export const logout = () => async (dispatch) =>{
 
     try {

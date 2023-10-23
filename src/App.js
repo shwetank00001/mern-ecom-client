@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './components/layout/Header/Header';
-import WebFont from 'webfontloader';
+import WebFont, { load } from 'webfontloader';
 import Footer from './components/layout/Footer/Footer';
 import { Routes, Route } from 'react-router-dom';
 
@@ -18,17 +18,9 @@ import { loadUser } from './actions/userAction';
 
 const App = () => {
 
-    const {isAuthenticated, user } = useSelector( state=> state.user)
-    const dispatch = useDispatch()
-
-    const {} = useSelector( state => state.user)
-    React.useEffect(() => {
-        WebFont.load({
-            google: {
-                families: ['Roboto', 'Droid Sans'],
-            },
-        });
-    }, [ dispatch ]);
+    React.useEffect( ()=> {
+        store.dispatch(loadUser())
+    }, [])
 
     return (
         <div>

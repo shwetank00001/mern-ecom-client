@@ -28,7 +28,8 @@ const LoginSignUp = () => {
   const [ user, setUser ] = useState({
     name: "",
     email: "", 
-    password: ""
+    password: "",
+    avatar: null
   })
 
   const { name, email, password } = user
