@@ -18,9 +18,9 @@ import { loadUser } from './actions/userAction';
 
 const App = () => {
 
-    React.useEffect( ()=> {
-        store.dispatch(loadUser())
-    }, [])
+    // React.useEffect( ()=> {
+    //     store.dispatch(loadUser())
+    // }, [])
 
     return (
         <div>
